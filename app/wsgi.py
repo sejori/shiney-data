@@ -1,6 +1,7 @@
 
 from flask import Flask, jsonify, request
-from pydantic import BaseModel
+from dtos.card_dtos import CreateCardRequest
+from dtos.deck_dtos import GetDeckWithCardsRequest
 from utils.db_utils import sql
 
 app = Flask(__name__)
@@ -24,18 +25,11 @@ def sample_get_route():
     return jsonify(json_results)
 
 
-class Body(BaseModel):
-    test_string: str
-
-
 @app.route('/post', methods=['POST'])
 def sample_post_route():
-    body = Body(**request.get_json())
-    return jsonify(body.dict())
+    body = CreateCardRequest(**request.get_json())
+    return jsonify(body.model_dump())
 
-
-class GetDeckWithCardsRequest(BaseModel):
-    deck_id: int
 
 
 @app.route('/get_deck', methods=['POST'])
