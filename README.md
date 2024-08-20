@@ -61,3 +61,18 @@ fetch('/post', {
     })
 })
 ```
+
+To demonstrate the lexorank adjustments, try repoisitioning a card like so:
+
+```js
+fetch('/reposition_card', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        card_id: 4,
+        preceding_card_id: 1 
+    })
+})
+```
