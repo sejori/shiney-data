@@ -4,7 +4,7 @@ from dtos.deck_dtos import GetDeckWithCardsRequest
 def ListDeckItems(body: GetDeckWithCardsRequest):
     if body.deck_id:
         card_results = sql(f'SELECT * FROM card WHERE deck_id = {body.deck_id}')
-        deck_results = sql(f'SELECT * FROM deck WHERE parent_id = {body.deck_id}')
+        deck_results = sql(f'SELECT * FROM deck WHERE deck_id = {body.deck_id} OR parent_id = {body.deck_id}')
     else:
         card_results = sql('SELECT * FROM card')
         deck_results = sql('SELECT * FROM deck')

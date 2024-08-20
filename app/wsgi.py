@@ -21,7 +21,8 @@ You can specify the interface to the frontend using a pydantic model like the Bo
 
 @app.route('/')
 def sample_get_route():
-    body = GetDeckWithCardsRequest()
+    deck_id = request.args.get('deck_id')
+    body = GetDeckWithCardsRequest(deck_id=deck_id)
     json_results = ListDeckItems(body)
     return jsonify(json_results)
 
@@ -31,16 +32,6 @@ def sample_post_route():
     body = CreateCardRequest(**request.json)
     result = CreateCard(body)
     return jsonify(result)
-
-
-
-@app.route('/get_deck', methods=['POST'])
-def get_deck():
-    """A method to get all of a deck's cards and child decks
-    """
-    body = GetDeckWithCardsRequest(**request.get_json())
-    json_results = ListDeckItems(body)
-    return jsonify(json_results)
 
 
 if __name__ == '__main__':
