@@ -25,7 +25,7 @@ CREATE TABLE card (
 
 INSERT INTO deck (name, parent_id, lexorank) VALUES ('deck1', NULL, 'a');
 INSERT INTO deck (name, parent_id, lexorank) VALUES ('deck2', NULL, 'b');
-INSERT INTO deck (name, parent_id, lexorank) VALUES ('deck3', 1, 'a');
+INSERT INTO deck (name, parent_id, lexorank) VALUES ('deck3', 1, 'c');
 
 INSERT INTO card (content, deck_id, lexorank) VALUES ('card 1', 1, 'a');
 INSERT INTO card (content, deck_id, lexorank) VALUES ('card 2', 1, 'b');

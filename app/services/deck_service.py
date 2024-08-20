@@ -49,7 +49,7 @@ def DeleteDeck(body: GetDeckByIdRequest):
     return sql(f'DELETE FROM deck WHERE deck_id = {body.deck_id}')
 
 def RepositionDeck(body: RepositionDeckRequest):
-    preceding_deck = GetDeckById(GetDeckByIdRequest(card_id=body.preceding_deck_id))
+    preceding_deck = GetDeckById(GetDeckByIdRequest(deck_id=body.preceding_deck_id))
     decks = ListDecks(GetDeckWithCardsRequest(deck_id=preceding_deck.get('deck_id')))
     following_deck = decks[decks.index(preceding_deck) + 1] if preceding_deck in decks[:-1] else None
 
