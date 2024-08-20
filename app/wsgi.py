@@ -1,8 +1,8 @@
 
 from flask import Flask, jsonify, request
-from services.card_service import CreateCard
+from services.card_service import CreateCard, RepositionCard
 from services.deck_service import ListDeckItems
-from dtos.card_dtos import CreateCardRequest
+from dtos.card_dtos import CreateCardRequest, RepositionCardRequest
 from dtos.deck_dtos import GetDeckWithCardsRequest
 from utils.db_utils import sql
 
@@ -31,6 +31,12 @@ def sample_get_route():
 def sample_post_route():
     body = CreateCardRequest(**request.json)
     result = CreateCard(body)
+    return jsonify(result)
+
+@app.route('/reposition_card', methods=['POST'])
+def reposition_card():
+    body = RepositionCardRequest(**request.json)
+    result = RepositionCard(body)
     return jsonify(result)
 
 
