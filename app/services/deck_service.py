@@ -42,6 +42,8 @@ def UpdateDeck(body: UpdateDeckRequest):
     elif (body.parent_id):
         setStatements.append(f'parent_id = {body.parent_id}')
 
+    # TODO: update updated_timestamp
+
     setClause = ', '.join(setStatements)
     return sql(f'UPDATE deck SET {setClause} WHERE deck_id = {body.deck_id}')
 

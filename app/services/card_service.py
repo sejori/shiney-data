@@ -40,6 +40,9 @@ def UpdateCard(body: UpdateCardRequest):
         setStatements.append(f'deck_id = {body.deck_id}')
 
     setClause = ', '.join(setStatements)
+
+    # TODO: update updated_timestamp
+
     return sql(f'UPDATE card SET {setClause} WHERE card_id = {body.card_id}')
 
 def DeleteCard(body: GetCardByIdRequest):

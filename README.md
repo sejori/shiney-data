@@ -76,3 +76,11 @@ fetch('/reposition_card', {
     })
 })
 ```
+
+# Further changes:
+
+- Generate OpenAPI / swagger docs 
+- Expand e2e / unit tests
+- Refactor to DDD if number of entities will increase
+- Better data validation out of DB
+- Consider a junction table to optimise db and dedupe cards across users
