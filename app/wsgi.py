@@ -1,9 +1,9 @@
 
 from flask import Flask, jsonify, request
 from services.card_service import CreateCard, DeleteCard, RepositionCard, UpdateCard
-from services.deck_service import ListDeckItems
+from services.deck_service import CreateDeck, DeleteDeck, ListDeckItems, RepositionDeck, UpdateDeck
 from dtos.card_dtos import CreateCardRequest, GetCardByIdRequest, RepositionCardRequest, UpdateCardRequest
-from dtos.deck_dtos import GetDeckWithCardsRequest
+from dtos.deck_dtos import CreateDeckRequest, GetDeckByIdRequest, GetDeckWithCardsRequest, RepositionDeckRequest, UpdateDeckRequest
 from utils.db_utils import sql
 
 app = Flask(__name__)
@@ -27,6 +27,9 @@ def sample_get_route():
     return jsonify(json_results)
 
 
+"""
+CRUD operations for cards
+"""
 @app.route('/post', methods=['POST'])
 def sample_post_route():
     body = CreateCardRequest(**request.json)
@@ -49,6 +52,34 @@ def update_card():
 def delete_card():
     body = GetCardByIdRequest(**request.json)
     result = DeleteCard(body)
+    return jsonify(result)
+
+
+"""
+CRUD operations for decks
+"""
+@app.route('/post_deck', methods=['POST'])
+def post_deck():
+    body = CreateDeckRequest(**request.json)
+    result = CreateDeck(body)
+    return jsonify(result)
+
+@app.route('/reposition_deck', methods=['POST'])
+def reposition_deck():
+    body = RepositionDeckRequest(**request.json)
+    result = RepositionDeck(body)
+    return jsonify(result)
+
+@app.route('/update_deck', methods=['POST'])
+def update_deck():
+    body = UpdateDeckRequest(**request.json)
+    result = UpdateDeck(body)
+    return jsonify(result)
+
+@app.route('/delete_deck', methods=['POST'])
+def delete_deck():
+    body = GetDeckByIdRequest(**request.json)
+    result = DeleteDeck(body)
     return jsonify(result)
 
 
