@@ -1,20 +1,22 @@
 DROP TABLE IF EXISTS deck;
 CREATE TABLE deck (
-deck_id INTEGER PRIMARY KEY AUTOINCREMENT,
-name TEXT,
-parent_id INTEGER,
-created_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-updated_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-FOREIGN KEY(parent_id) references deck(deck_id));
+    deck_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    parent_id INTEGER,
+    created_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(parent_id) references deck(deck_id)
+);
 
 DROP TABLE IF EXISTS card;
 CREATE TABLE card (
-card_id INTEGER PRIMARY KEY AUTOINCREMENT,
-content TEXT,
-deck_id integer references deck(deck_id),
-created_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-updated_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-FOREIGN KEY(deck_id) references deck(deck_id));
+    card_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    content TEXT,
+    deck_id integer references deck(deck_id),
+    created_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(deck_id) references deck(deck_id)
+);
 
 
 
