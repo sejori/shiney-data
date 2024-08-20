@@ -89,4 +89,6 @@ fetch('/reposition_card', {
 - Extract db logic to repository classes/modules and implement into a DRY service for both card and deck as logic is quite repetitive between them
 - CI/CD pipeline to test and deploy to GCP CloudRun with GitHub actions
 - Refactor db queries to prevent SQL injection
-- consistent casing across util functions
+- Consistent casing across util functions
+- Implement a more scalable and reliable Lexorank algorithm
+- Refactor to remove excessive queries (e.g. SELECT * ...)
