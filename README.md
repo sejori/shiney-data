@@ -10,6 +10,35 @@ It is built with Flask and Pydantic.
 
 2. Start app server: `$ python app/wsgi.py`
 
+## Requirements
+
+The app has two models:
+- Decks - contain cards and other decks
+- Cards - contain content for users to revise
+
+Users need to be able to move the cards and decks around with a drag and drop interface like on the homepage of a smartphone. 
+
+The position of the cards and decks needs to be persisted, with the number of writes to the database being kept to a minimum.
+
+## Technical solution
+
+The data can be modelled quite simply in a relational database with two tables: card and deck. We can then build a basic CRUD API on top of these data models for updating data. 
+
+The challenge is persist the order of items whilst minimising database writes. An obvious solution is to store the position of a deck or card as an integer in a database column. However, consider the case where a card is reordered to appear before other cards: it's position would need to be updated and so would all of the following cards'.
+
+Is there a better way? Indeed there is: Lexorank. 
+
+We will use alphabetical characters to store the order of items in the database. This may seem odd but is actually a brilliant technique!
+
+For example, a card has position "A" and another has position "B". We want to insert card "C" in between "A" and "B". We can simply update the position of "C" to "AN". 
+
+Now when ordered by lexorank (alphabetically) the cards will appear:
+
+"A" -> "AN" -> "B"
+
+Notice that we did not need to adjust the position values of A or B to achieve this.
+
+
 # Basic testing
 
 The easiest way to test the app is to open `localhost:5001` in a web browser.
