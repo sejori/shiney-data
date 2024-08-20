@@ -9,7 +9,12 @@ def sql(query):
     conn = get_db_connection()
     cur = conn.cursor()
     cur.execute(query)
+    conn.commit()
     results = cur.fetchall()
-    column_names = [column[0] for column in cur.description]
     conn.close()
-    return [dict(zip(column_names, row)) for row in results]
+    
+    if (cur.description): 
+        column_names = [column[0] for column in cur.description]
+        return [dict(zip(column_names, row)) for row in results]
+    else:
+        return cur.rowcount

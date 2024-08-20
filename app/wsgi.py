@@ -1,5 +1,7 @@
 
 from flask import Flask, jsonify, request
+from services.card_service import CreateCard
+from services.deck_service import ListDeckItems
 from dtos.card_dtos import CreateCardRequest
 from dtos.deck_dtos import GetDeckWithCardsRequest
 from utils.db_utils import sql
@@ -19,16 +21,16 @@ You can specify the interface to the frontend using a pydantic model like the Bo
 
 @app.route('/')
 def sample_get_route():
-    card_results = sql('SELECT * FROM card')
-    deck_results = sql('SELECT * FROM deck')
-    json_results = {'deck_results': deck_results, 'card_results': card_results}
+    body = GetDeckWithCardsRequest()
+    json_results = ListDeckItems(body)
     return jsonify(json_results)
 
 
 @app.route('/post', methods=['POST'])
 def sample_post_route():
-    body = CreateCardRequest(**request.get_json())
-    return jsonify(body.model_dump())
+    body = CreateCardRequest(**request.json)
+    result = CreateCard(body)
+    return jsonify(result)
 
 
 
@@ -37,9 +39,7 @@ def get_deck():
     """A method to get all of a deck's cards and child decks
     """
     body = GetDeckWithCardsRequest(**request.get_json())
-    card_results = sql(f'SELECT * FROM card WHERE deck_id = {body.deck_id}')
-    deck_results = sql('SELECT * FROM deck WHERE parent_id = {body.deck_id}')
-    json_results = {'deck_results': deck_results, 'card_results': card_results}
+    json_results = ListDeckItems(body)
     return jsonify(json_results)
 
 
