@@ -84,5 +84,9 @@ fetch('/reposition_card', {
 - Refactor to DDD if number of entities will increase
 - Better data validation out of DB
 - Consider a junction table to optimise db and dedupe cards across users
+
+**Additional ideas for changes (added after 2 hour time window):**
 - Extract db logic to repository classes/modules and implement into a DRY service for both card and deck as logic is quite repetitive between them
 - CI/CD pipeline to test and deploy to GCP CloudRun with GitHub actions
+- Refactor db queries to prevent SQL injection
+- consistent casing across util functions
